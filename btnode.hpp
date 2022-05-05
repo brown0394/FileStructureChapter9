@@ -4,9 +4,9 @@
 #define BTNODE_TC
 
 #include <iostream>
-#include "simpind.h"
+//#include "simpind.h"
 #include "btnode.h"
-#include "fixfld.h"
+//#include "fixfld.h"
 
 
 

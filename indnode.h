@@ -6,7 +6,7 @@
 template <class keyType>
 class BTree;
 
-//#include "simpind.h"
+#include "simpind.h"
 #include "indbuff.h"
 #include "recfile.h"
 

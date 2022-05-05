@@ -3,12 +3,11 @@
 #ifndef BTREE_TC
 #define BTREE_TC
 
-#include "btnode.h"
-#include "indbuff.h"
+//#include "btnode.h"
+//#include "indbuff.h"
 #include "btree.h"
 #include <iostream>
 
-template class BTree<char>;
 
 const int MaxHeight = 5;
 template <class keyType>

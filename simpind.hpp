@@ -4,8 +4,8 @@
 #define SIMPIND_TC
 
 #include "simpind.h"
-#include "indbuff.h"
-#include <iostream>
+//#include "indbuff.h"
+//#include <iostream>
 
 template <class keyType>
 SimpleIndex<keyType>::SimpleIndex(int maxKeys, int unique)

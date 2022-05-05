@@ -1,6 +1,6 @@
 #pragma warning(disable:4996)
 //tstbtree.cc
-//#include "btnode.h"
+#include "btnode.h"
 #include "btree.h"
 #include <iostream>
 #include <string>

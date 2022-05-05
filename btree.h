@@ -5,8 +5,10 @@
 #define BTREE_H
 
 #include "btnode.h"
-#include "recfile.h"
 #include "fixfld.h"
+#include "recfile.h"
+
+
 //#include "indbuff.h"
 
 // btree needs to be able to pack, unpack, read and

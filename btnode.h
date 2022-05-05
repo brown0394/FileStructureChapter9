@@ -3,10 +3,10 @@
 #ifndef BTNODE_H
 #define BTNODE_H
 
-#include "simpind.h"
+#include "btree.h"
 #include "recfile.h"
 #include "fixfld.h"
-#include "btree.h"
+#include "simpind.h"
 
 using namespace std;
 
