@@ -5,9 +5,8 @@
 #define BTREE_H
 
 #include "btnode.h"
-#include "fixfld.h"
 #include "recfile.h"
-
+#include "fixfld.h"
 
 //#include "indbuff.h"
 
@@ -50,5 +49,7 @@ protected:
 	FixedFieldBuffer Buffer;
 	RecordFile<BTNode> BTreeFile;
 };
+
 #include "btree.hpp"
+
 #endif

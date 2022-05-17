@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="btnode.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="btree.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="buffile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,12 +22,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fixlen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="indbuff.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="indnode.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="iobuffer.cpp">
@@ -45,9 +33,6 @@
     <ClCompile Include="recording.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="simpind.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="testbtree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,6 +40,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="varlen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="z-test-Btree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="indbuff.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="indnode.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simpind.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="btnode.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="btree.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="varlen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="strclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

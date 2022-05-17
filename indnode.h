@@ -6,7 +6,7 @@
 template <class keyType>
 class BTree;
 
-#include "simpind.h"
+//#include "simpind.h"
 #include "indbuff.h"
 #include "recfile.h"
 
@@ -43,6 +43,7 @@ protected:
 	void Clear() { NumKeys = 0; RecAddr = -1; }
 	friend class BTree<keyType>;
 };
+
 #include "indnode.hpp"
 #endif
 

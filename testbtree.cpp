@@ -1,6 +1,6 @@
 #pragma warning(disable:4996)
 //tstbtree.cc
-#include "btnode.h"
+//#include "btnode.h"
 #include "btree.h"
 #include <iostream>
 #include <string>
@@ -9,7 +9,7 @@ using namespace std;
 
 const char * keys = "CSDTAMPIBWNGURKEHOLJYQZFXV";
 template <class keyType> class BTree;
-const int BTreeSize = 3;
+const int BTreeSize = 4;
 int main(void) {
 	int result, i;
 	BTree <char> bt(BTreeSize);

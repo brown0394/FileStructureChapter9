@@ -30,5 +30,6 @@ protected:
 	int MaxKeys;
 	int KeySize;
 };
+
 #include "indbuff.hpp"
 #endif

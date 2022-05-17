@@ -5,9 +5,9 @@
 #define INDNODE_TC
 
 #include <iostream>
-//#include "simpind.h"
+#include "simpind.h"
 #include "indnode.h"
-//#include "fixfld.h"
+#include "fixfld.h"
 
 template <class keyType>
 IndexNode<keyType>::IndexNode(int maxKeys, int unique)

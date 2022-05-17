@@ -1,14 +1,13 @@
 //btnode.tc
 #pragma once
+
 #ifndef BTNODE_TC
 #define BTNODE_TC
 
 #include <iostream>
-//#include "simpind.h"
+#include "simpind.h"
 #include "btnode.h"
-//#include "fixfld.h"
-
-
+#include "fixfld.h"
 
 template <class keyType>
 BTreeNode<keyType>::BTreeNode(int maxKeys, int unique)
@@ -47,7 +46,7 @@ void BTreeNode<keyType>::Print(ostream & stream) const
 }
 
 template <class keyType>
-int BTreeNode<keyType>::LargestKey()
+keyType BTreeNode<keyType>::LargestKey()
 // returns value of largest key
 {
 	if (NumKeys > 0) return Keys[NumKeys - 1];

@@ -4,31 +4,35 @@
 #include "btree.h"
 #include "recording.h"
 #include "length.h"
+#include "strclass.h"
 using namespace std;
 
 const char* keys;
 
 const int BTreeSize = 4;
 int main(int argc, char* argv) {
-	int result, i;
+	int result;
 	LengthFieldBuffer Buffer;
-	BTree <char> bt(BTreeSize);
+	BTree <String> bt(BTreeSize);
 	RecordFile<Recording> dataFile(Buffer);
-	result = dataFile.Create("btreedata.dat", ios::out);
+
+	result = dataFile.Create("btreedata.dat", ios::out | ios::in);
 	if (result == -1) {
-		//
-	}
-	result = bt.Create("btree.dat", ios::out);
-	if (!result) {
-		cout << "Please delete testbt.dat" << endl;
+		cout << "Please delete btreedata.dat" << endl;
 		system("pause");
 		return 0;
-
 	}
-	/*
-	int recaddr;
+	result = bt.Create("btree.dat", ios::out | ios::in);
+	if (!result) {
+		cout << "Please delete btree.dat" << endl;
+		system("pause");
+		return 0;
+	}
+	
+	
+	int recAddr;
 	//write records
-	Recording* R[20], foundRecord;
+	Recording* R[20], found;
 
 	R[0] = new Recording("LON", "2312", "Romeo and Juliet", "Prokofiev", "Maazel");
 	R[1] = new Recording("RCA", "2626", "Quartet in C Sharp Minor", "Beethoven", "Julliard");
@@ -50,7 +54,8 @@ int main(int argc, char* argv) {
 	R[17] = new Recording("1COL", "31809", "Symphony No. 9", "Dvorak", "Bernstein");
 	R[18] = new Recording("1DG", "139201", "Violin Concerto", "Beethoven", "Ferras");
 	R[19] = new Recording("1FF", "245", "Good News", "Sweet Honey in the Rock", "Sweet Honey in the Rock");
-	for (int i = 0; i < 10; i++)
+
+/*	for (int i = 0; i < 10; i++)
 	{
 		recaddr = IndFile.Append(*R[i]);
 		cout << "IndFile R[" << i << "] at recaddr " << recaddr << endl;
@@ -72,17 +77,19 @@ int main(int argc, char* argv) {
 	cout << endl << "IndFile.Read(searchKey, foundRecord)::result =  " << result << "--> ";
 	foundRecord.Print(cout);
 	cout << endl;
-	IndFile.Close();
-	*/
-	for (i = 0; i < 20; i++)
+	IndFile.Close();*/
+	
+	for (int i = 0; i < 20; i++)
 	{
 		recAddr = dataFile.Append(*R[i]);//data file에 가변길이 record를 저장
 		//assign getKey(*R[i]) to *keys;//keys를 추출하여 *keys에 저장
-		result = bt.Insert(keys[i], recAddr);
+		
+		result = bt.Insert(( * R[i]).Key(), recAddr);
 		bt.Print(cout);
 	}
 	recAddr = bt.Search("1DG139201", -1);
-	dataFile.Read(recAddr);//data file을 read하여 해당 레코드를 출력한다.
+	dataFile.Read(found, recAddr);//data file을 read하여 해당 레코드를 출력한다.
+	cout << found << endl;
 	//bt.InorderTraversal(); 구현하여 data file의 record를 sorted 결과로 출력
 	//bt.Remove('L');//구현 - redistribute와 merge를 구현한다.
 	//bt.InorderTraversal(); 구현하여 data file의 record를 sorted 결과로 출력

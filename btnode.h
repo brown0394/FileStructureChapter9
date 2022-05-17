@@ -3,10 +3,10 @@
 #ifndef BTNODE_H
 #define BTNODE_H
 
-#include "btree.h"
+#include "simpind.h"
 #include "recfile.h"
 #include "fixfld.h"
-#include "simpind.h"
+#include "btree.h"
 
 using namespace std;
 
@@ -25,7 +25,7 @@ public:
 	int Remove(const keyType key, int recAddr = -1);
 	//int Search (const keyType key) const;
 	void Print(ostream &) const;
-	int LargestKey(); // returns value of largest key
+	keyType LargestKey(); // returns value of largest key
 	int Split(BTreeNode<keyType> * newNode); // move keys into newNode
 	int Merge(BTreeNode<keyType> * fromNode); // move keys from fromNode
 	int UpdateKey(keyType oldKey, keyType newKey, int recAddr = -1);
@@ -42,7 +42,7 @@ protected:
 	friend class BTree<keyType>;
 };
 
-
 #include "btnode.hpp"
+
 #endif
 

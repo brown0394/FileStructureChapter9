@@ -110,11 +110,17 @@
     <ClCompile Include="length.cpp" />
     <ClCompile Include="recording.cpp" />
     <ClCompile Include="simpind.hpp" />
-    <ClCompile Include="testbtree.cpp" />
+    <ClCompile Include="strclass.cpp" />
+    <ClCompile Include="testbtree.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="tstbtree.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="varlen.cpp" />
+    <ClCompile Include="z-test-Btree.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="btnode.h" />
@@ -129,6 +135,7 @@
     <ClInclude Include="recfile.h" />
     <ClInclude Include="recording.h" />
     <ClInclude Include="simpind.h" />
+    <ClInclude Include="strclass.h" />
     <ClInclude Include="varlen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
