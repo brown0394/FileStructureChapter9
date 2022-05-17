@@ -51,6 +51,10 @@ String & String::operator = (const String & str)
 	return *this;
 }
 
+String::operator char* () {
+	return this->string;
+}
+
 int String::operator < (const String &str) const
 // less than, lexicographic
 {	return strcmp(string, str.string) < 0;}

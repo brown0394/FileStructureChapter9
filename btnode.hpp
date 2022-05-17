@@ -132,7 +132,7 @@ int BTreeNode<keyType>::Pack(IOBuffer& buffer) const
 	result = buffer.Pack(&NumKeys);
 	for (int i = 0; i < NumKeys; i++)
 	{// note only pack the actual keys and recaddrs
-		result = result && buffer.Pack(&Keys[i]);
+		result = result && buffer.Pack(Item(&Keys[i]));
 		result = result && buffer.Pack(&RecAddrs[i]);
 	}
 	return result;
@@ -161,6 +161,11 @@ int BTreeNode<keyType>::InitBuffer
 		buffer.AddField(keySize); buffer.AddField(sizeof(int));
 	}
 	return 1;
+}
+
+template <class keyType>
+const char* BTreeNode<keyType>::Item(keyType item) {
+	return char* (item);
 }
 
 #endif

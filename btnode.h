@@ -32,6 +32,7 @@ public:
 	int Pack(IOBuffer& buffer) const;
 	int Unpack(IOBuffer& buffer);
 	static int InitBuffer(FixedFieldBuffer & buffer,int maxKeys, int keySize = sizeof(keyType));
+	const char* Item(keyType item);
 protected:
 	int NextNode; // address of next node at same level
 	int RecAddr; // address of this node in the BTree file
