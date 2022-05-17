@@ -32,6 +32,10 @@ public:
 	int Search(const keyType key, const int recAddr = -1);
 	void Print(ostream &);
 	void Print(ostream &, int nodeAddr, int level);
+	template <class rfType>
+	void InorderTraversal(BTreeNode<keyType>* btnode, const RecordFile<rfType>& rf, int level);
+	template <class rfType>
+	void PrintSorted(const RecordFile<rfType>& rf);
 protected:
 	typedef BTreeNode<keyType> BTNode;// useful shorthand
 	BTNode * FindLeaf(const keyType key);

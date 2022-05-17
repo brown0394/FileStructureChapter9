@@ -11,6 +11,10 @@ const char* keys;
 
 const int BTreeSize = 4;
 int main(int argc, char* argv) {
+	String test("test");
+	char b = 'a';
+	void* a = &b;
+
 	int result;
 	LengthFieldBuffer Buffer;
 	BTree <String> bt(BTreeSize);
@@ -83,7 +87,6 @@ int main(int argc, char* argv) {
 	{
 		recAddr = dataFile.Append(*R[i]);//data file에 가변길이 record를 저장
 		//assign getKey(*R[i]) to *keys;//keys를 추출하여 *keys에 저장
-		
 		result = bt.Insert(( * R[i]).Key(), recAddr);
 		bt.Print(cout);
 	}

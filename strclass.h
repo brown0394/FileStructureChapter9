@@ -24,10 +24,8 @@ class String
 	int operator != (const String &) const;
 	int operator == (const String &) const;
 	char * str () const; // return a copy of the string
-	const int getMaxLength();
    protected:
 	char * string;
-	unsigned int MaxLength;
    friend ostream & operator << (ostream & stream, String & str);
 };
 
