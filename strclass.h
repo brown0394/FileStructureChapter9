@@ -15,6 +15,7 @@ class String
 	String (const char *); // create from C string
 	~String ();
 	String & operator = (const String &);
+
 	operator char * ();
 	int operator < (const String &) const;
 	int operator > (const String &) const;
