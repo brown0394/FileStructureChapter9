@@ -25,7 +25,7 @@ template <class keyType>
 BTree<keyType>::~BTree()
 {
 	Close();
-	delete Nodes;
+	delete[] Nodes;
 }
 
 template <class keyType>
@@ -206,47 +206,22 @@ int BTree<keyType>::Store(BTNode * thisNode)
 
 template<class keyType>
 template <class rfType>
-void BTree<keyType>::InorderTraversal(BTNode* btnode, const RecordFile<rfType>& recordFile, int level) {
-	for (int i = 0; i < btnode->MaxKeys; ++i) {
-		InorderTraversal(Fetch(btnode->RecAddrs[i]));
-	}
-	cout << 
-}
-template <class keyType>
-void BTree<keyType>::Print(ostream& stream)
-{
-	stream << "BTree of height " << Height << " is " << endl;
-	Root.Print(stream);
-	if (Height > 1)
-		for (int i = 0; i < Root.numKeys(); i++)
-		{
-			Print(stream, Root.RecAddrs[i], 2);
+void BTree<keyType>::InorderTraversal(BTNode* btnode, RecordFile<rfType>& recordFile, int level) {
+	rfType type;
+	for (int i = 0; i < btnode->NumKeys; ++i) {
+		if (level == Height) {
+			recordFile.Read(type, btnode->RecAddrs[i]);
+			cout << type << endl;
 		}
-	stream << "end of BTree" << endl;
-}
-
-template <class keyType>
-void BTree<keyType>::Print
-(ostream& stream, int nodeAddr, int level)
-{
-	BTNode* thisNode = Fetch(nodeAddr);
-	stream << "BTree::Print() ->Node at level " << level << " address " << nodeAddr << ' ' << endl;
-	thisNode->Print(stream);
-	if (Height > level)
-	{
-		level++;
-		for (int i = 0; i < thisNode->numKeys(); i++)
-		{
-			Print(stream, thisNode->RecAddrs[i], level);
-		}
-		stream << "end of level " << level << endl;
+		else
+			InorderTraversal(Fetch(btnode->RecAddrs[i]), recordFile, level + 1);
 	}
 }
 
 template<class keyType>
 template <class rfType>
-void BTree<keyType>::PrintSorted(const RecordFile<rfType>& recordFile) {
-	InorderTraversal(Root, 1);
+void BTree<keyType>::PrintSorted(RecordFile<rfType>& recordFile) {
+	InorderTraversal(&Root, recordFile, 1);
 }
 
 #endif

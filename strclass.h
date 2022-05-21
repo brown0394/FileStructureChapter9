@@ -16,7 +16,6 @@ class String
 	~String ();
 	String & operator = (const String &);
 
-	operator char * ();
 	int operator < (const String &) const;
 	int operator > (const String &) const;
 	int operator <= (const String &) const;
@@ -24,6 +23,7 @@ class String
 	int operator != (const String &) const;
 	int operator == (const String &) const;
 	char * str () const; // return a copy of the string
+	char* getStr();
    protected:
 	char * string;
    friend ostream & operator << (ostream & stream, String & str);

@@ -5,7 +5,7 @@
 
 String::String ()
 {
-	string = new char[15];
+	string = new char[10];
 }
 
 String::String (const String& str) //copy constructor
@@ -21,14 +21,7 @@ String::String (const char * str) // create from C string
 String::~String ()
 {
 	delete[] string;
-	string = 0;
 }
-
-String::operator char * ()
-{
-	return string;
-}
-
 
 String & String::operator = (const String & str)
 // assignment
@@ -49,3 +42,7 @@ int String::operator == (const String & str) const
 
 char * String::str () const // return a copy of the string
 {	return strdup(string);}
+
+char* String::getStr(){
+	return this->string;
+}

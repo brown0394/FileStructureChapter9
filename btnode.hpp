@@ -145,7 +145,7 @@ int BTreeNode<keyType>::Unpack(IOBuffer& buffer)
 	result = buffer.Unpack(&NumKeys);
 	for (int i = 0; i < NumKeys; i++)
 	{// note only pack the actual keys and recaddrs
-		result = result && buffer.Unpack(Item( & Keys[i]));
+		result = result && buffer.Unpack(Item(& Keys[i]));
 		result = result && buffer.Unpack(&RecAddrs[i]);
 	}
 	return result;
@@ -165,7 +165,7 @@ int BTreeNode<keyType>::InitBuffer
 
 template <class keyType>
 char* BTreeNode<keyType>::Item(keyType *item) const{
-	return (char*) *item;
+	return item->getStr();
 }
 
 #endif

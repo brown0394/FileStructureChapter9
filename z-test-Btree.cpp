@@ -7,36 +7,43 @@
 #include "strclass.h"
 using namespace std;
 
-const char* keys;
+const char** keys;
 
 const int BTreeSize = 4;
-int main(int argc, char* argv) {
-	String test("test");
-	char b = 'a';
-	void* a = &b;
 
+char* getKey(char* targetKey, int keyLength) {//make all of the key length same.
+	char* key = new char[keyLength+1];
+	int i = 0;
+	for (; i < strlen(targetKey); ++i) {
+		key[i] = targetKey[i];
+		if (i == keyLength && strlen(targetKey) >= keyLength) 
+			break;
+	}
+	for (; i < keyLength; ++i) {
+		key[i] = '0';
+	}
+	key[i] = '\0';
+	delete[] targetKey;
+	return key;
+}
+
+template <class recordType>
+void readDataFile(RecordFile<recordType>& dataFile) {
 	int result;
-	LengthFieldBuffer Buffer;
-	BTree <String> bt(BTreeSize);
-	RecordFile<Recording> dataFile(Buffer);
+	recordType record;
+	dataFile.Rewind();
+	while (true) {
+		result = dataFile.Read(record);
+		if (result == -1) break;
+		cout << record << endl;
+	}
+}
 
-	result = dataFile.Create("btreedata.dat", ios::out | ios::in);
-	if (result == -1) {
-		cout << "Please delete btreedata.dat" << endl;
-		system("pause");
-		return 0;
-	}
-	result = bt.Create("btree.dat", ios::out | ios::in);
-	if (!result) {
-		cout << "Please delete btree.dat" << endl;
-		system("pause");
-		return 0;
-	}
-	
-	
+template <class BTreeType, class RecordType>
+void writeFile(BTree<BTreeType>& bt, RecordFile<RecordType>& dataFile) {
 	int recAddr;
 	//write records
-	Recording* R[20], found;
+	Recording* R[20];
 
 	R[0] = new Recording("LON", "2312", "Romeo and Juliet", "Prokofiev", "Maazel");
 	R[1] = new Recording("RCA", "2626", "Quartet in C Sharp Minor", "Beethoven", "Julliard");
@@ -59,43 +66,56 @@ int main(int argc, char* argv) {
 	R[18] = new Recording("1DG", "139201", "Violin Concerto", "Beethoven", "Ferras");
 	R[19] = new Recording("1FF", "245", "Good News", "Sweet Honey in the Rock", "Sweet Honey in the Rock");
 
-/*	for (int i = 0; i < 10; i++)
-	{
-		recaddr = IndFile.Append(*R[i]);
-		cout << "IndFile R[" << i << "] at recaddr " << recaddr << endl;
-	}
-	IndFile.Close();
-
-	IndFile.Open("indfile", ios::in);
-	for (int i = 0; i < 10; i++)
-	{
-		//stable[i] = new Recording;
-		result = IndFile.Read(foundRecord);
-		cout << endl << "IndFile.Read()::result =  " << result << "--> ";
-		foundRecord.Print(cout);
-	}
-
-	char* searchKey = "DG139201";
-	cout << endl << "Searck key::" << searchKey << endl;
-	result = IndFile.Read(searchKey, foundRecord);
-	cout << endl << "IndFile.Read(searchKey, foundRecord)::result =  " << result << "--> ";
-	foundRecord.Print(cout);
-	cout << endl;
-	IndFile.Close();*/
-	
+	int result;
+	keys = new const char* [20];
 	for (int i = 0; i < 20; i++)
 	{
 		recAddr = dataFile.Append(*R[i]);//data file에 가변길이 record를 저장
-		//assign getKey(*R[i]) to *keys;//keys를 추출하여 *keys에 저장
-		result = bt.Insert(( * R[i]).Key(), recAddr);
+		keys[i] = getKey((*R[i]).Key(), 7);//sizeof keyType is 8 using String class.
+		result = bt.Insert(keys[i], recAddr);
 		bt.Print(cout);
 	}
-	recAddr = bt.Search("1DG139201", -1);
-	dataFile.Read(found, recAddr);//data file을 read하여 해당 레코드를 출력한다.
-	cout << found << endl;
-	//bt.InorderTraversal(); 구현하여 data file의 record를 sorted 결과로 출력
-	//bt.Remove('L');//구현 - redistribute와 merge를 구현한다.
-	//bt.InorderTraversal(); 구현하여 data file의 record를 sorted 결과로 출력
+
+	for (int i = 0; i < 20; ++i) {
+		delete[] R[i];
+		delete[] keys[i];
+	}
+	delete[] keys;
+	keys = nullptr;
+}
+
+template <class BTreeType, class RecordType>
+void readFile(BTree<BTreeType>& bt, RecordFile<RecordType>& dataFile) {
+	cout << "\nRead File in Entry Sequenced Order" << endl;
+	readDataFile(dataFile);
+	cout << "\nRead File in Sorted Order" << endl;
+	bt.PrintSorted(dataFile);
+}
+
+int processFile() {
+	LengthFieldBuffer Buffer;
+	BTree <String> bt(BTreeSize);
+	RecordFile<Recording> dataFile(Buffer);
+	
+	int result = dataFile.Create("btreedata.dat", ios::out | ios::in);
+	if (result == -1) {
+		cout << "Please delete btreedata.dat" << endl;
+		system("pause");
+		return 0;
+	}
+	result = bt.Create("btree.dat", ios::out | ios::in);
+	if (!result) {
+		cout << "Please delete btree.dat" << endl;
+		system("pause");
+		return 0;
+	}
+
+	writeFile(bt, dataFile);
+	readFile(bt, dataFile);
+}
+
+int main(int argc, char* argv) {
+	processFile();
 	system("pause");
 	return 1;
 }

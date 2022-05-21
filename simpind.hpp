@@ -17,8 +17,8 @@ SimpleIndex<keyType>::SimpleIndex(int maxKeys, int unique)
 template <class keyType>
 SimpleIndex<keyType>::~SimpleIndex()
 {
-	delete Keys;
-	delete RecAddrs;
+	delete[] Keys;
+	delete[] RecAddrs;
 }
 
 template <class keyType>
