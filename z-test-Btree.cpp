@@ -7,7 +7,7 @@
 #include "strclass.h"
 using namespace std;
 
-const char** keys;
+//const char** keys;
 
 const int BTreeSize = 4;
 
@@ -67,21 +67,22 @@ void writeFile(BTree<BTreeType>& bt, RecordFile<RecordType>& dataFile) {
 	R[19] = new Recording("1FF", "245", "Good News", "Sweet Honey in the Rock", "Sweet Honey in the Rock");
 
 	int result;
-	keys = new const char* [20];
+	//keys = new const char* [20];
 	for (int i = 0; i < 20; i++)
 	{
 		recAddr = dataFile.Append(*R[i]);//data file에 가변길이 record를 저장
-		keys[i] = getKey((*R[i]).Key(), 7);//sizeof keyType is 8 using String class.
-		result = bt.Insert(keys[i], recAddr);
+		//keys[i] = (*R[i]).Key();//getKey((*R[i]).Key(), 7);//sizeof keyType is 8 using String class.
+		char* key = (*R[i]).Key();
+		result = bt.Insert(key, recAddr);
 		bt.Print(cout);
+		delete[] key;
 	}
-
 	for (int i = 0; i < 20; ++i) {
 		delete[] R[i];
-		delete[] keys[i];
+		//delete[] keys[i];
 	}
-	delete[] keys;
-	keys = nullptr;
+	//delete[] keys;
+	//keys = nullptr;
 }
 
 template <class BTreeType, class RecordType>
@@ -94,7 +95,7 @@ void readFile(BTree<BTreeType>& bt, RecordFile<RecordType>& dataFile) {
 
 int processFile() {
 	LengthFieldBuffer Buffer;
-	BTree <String> bt(BTreeSize);
+	BTree <String> bt(BTreeSize, 10);
 	RecordFile<Recording> dataFile(Buffer);
 	
 	int result = dataFile.Create("btreedata.dat", ios::out | ios::in);
@@ -112,6 +113,8 @@ int processFile() {
 
 	writeFile(bt, dataFile);
 	readFile(bt, dataFile);
+	dataFile.Close();
+	bt.Close();
 }
 
 int main(int argc, char* argv) {

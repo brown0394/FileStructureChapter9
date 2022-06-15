@@ -17,7 +17,7 @@ BTree<keyType>::BTree(int order, int keySize, int unique)
 	Order = order;
 	PoolSize = MaxHeight * 2;
 	Nodes = new BTNode *[PoolSize];
-	BTNode::InitBuffer(Buffer, order);
+	BTNode::InitBuffer(Buffer, order, keySize);
 	Nodes[0] = &Root;
 }
 
