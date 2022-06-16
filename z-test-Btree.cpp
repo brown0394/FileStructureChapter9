@@ -77,6 +77,7 @@ void writeFile(BTree<BTreeType>& bt, RecordFile<RecordType>& dataFile) {
 		bt.Print(cout);
 		delete[] key;
 	}
+
 	for (int i = 0; i < 20; ++i) {
 		delete[] R[i];
 		//delete[] keys[i];

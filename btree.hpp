@@ -123,7 +123,40 @@ int BTree<keyType>::Insert(const keyType key, const int recAddr)
 template <class keyType>
 int BTree<keyType>::Remove(const keyType key, const int recAddr)
 {
-	// left for exercise
+	int result; int level = Height - 1; int mergeResult;
+	//int newLargest = 0;
+	keyType largestKey;
+	BTNode* thisNode = nullptr, * nextNode = nullptr, * parentNode = nullptr;
+	thisNode = FindLeaf(key);
+	largestKey = thisNode->LargestKey();
+	result = thisNode->Remove(key, recAddr);
+
+	if (result == -1) {
+		--level;
+		if (level < 0) return -1;
+		parentNode = Nodes[level];
+		int idx = 0;
+		while (parentNode->Keys[idx] != largestKey) {
+			++idx;
+		}
+		if (idx < parentNode->NumKeys) {
+			nextNode = Fetch(parentNode->RecAddrs[idx + 1]);
+			mergeResult = thisNode->Merge(nextNode);
+			if (mergeResult == 0) {
+				//redistribute
+			}
+			else {
+				parentNode->Remove(key);
+			}
+		}
+		else {
+			nextNode = Fetch(parentNode->RecAddrs[idx - 1]);
+			mergeResult = nextNode->Merge(thisNode);
+		}
+	}
+	else {
+		Store(thisNode);
+	}
 	return -1;
 }
 
